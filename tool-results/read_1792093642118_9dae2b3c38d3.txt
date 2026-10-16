@@ -1,0 +1,814 @@
+     1→/**
+     2→ * ─────────────────────────────────────────────────────────────────────────────
+     3→ *  PULSE 961 — All site copy (EN + AR) in one object.
+     4→ *  `ar` is typed as `typeof en`, so the two languages can never drift:
+     5→ *  adding a key in English without an Arabic twin is a compile error.
+     6→ *
+     7→ *  Arabic notes: the copy is written in natural Lebanese-friendly Arabic
+     8→ *  (light dialect, not literal translation) — how a Beirut gym actually talks.
+     9→ * ─────────────────────────────────────────────────────────────────────────────
+    10→ */
+    11→
+    12→export type Language = "en" | "ar";
+    13→
+    14→const en = {
+    15→  nav: {
+    16→    programs: "Programs",
+    17→    memberships: "Memberships",
+    18→    schedule: "Schedule",
+    19→    trainers: "Trainers",
+    20→    faq: "FAQ",
+    21→    freeTrial: "Free trial",
+    22→    openMenu: "Open menu",
+    23→    closeMenu: "Close menu",
+    24→    skipToContent: "Skip to content",
+    25→    langToggleLabel: "Switch language",
+    26→  },
+    27→  hero: {
+    28→    eyebrow: "Beirut — Boutique Gym",
+    29→    titleA: "Stronger than",
+    30→    titleB: "your excuses.",
+    31→    subtitle:
+    32→      "Pulse 961 is Mar Mikhael's boutique gym — strength, boxing and classes that fill up fast, coached by people who actually know your name.",
+    33→    primaryCta: "Claim a free trial on WhatsApp",
+    34→    secondaryCta: "See memberships",
+    35→    rating: "Rated 4.9/5 by 500+ members",
+    36→  },
+    37→  live: {
+    38→    ariaLabel: "Live class status",
+    39→    live: "Happening now",
+    40→    next: "Next up",
+    41→    tomorrow: "tomorrow",
+    42→    openGym: "Open gym",
+    43→    beirutTime: "Beirut time",
+    44→  },
+    45→  legend: {
+    46→    ariaLabel: "Class type legend",
+    47→    strength: "Strength",
+    48→    cardio: "Cardio & HIIT",
+    49→    boxing: "Boxing",
+    50→    open: "Open gym",
+    51→  },
+    52→  trialForm: {
+    53→    name: "Your name",
+    54→    namePlaceholder: "e.g. Rami",
+    55→    interest: "What sounds like you?",
+    56→    interests: {
+    57→      strength: "Strength",
+    58→      cardio: "Cardio & HIIT",
+    59→      boxing: "Boxing",
+    60→      womens: "Women's Only",
+    61→      unsure: "Not sure yet",
+    62→    },
+    63→    submit: "Send on WhatsApp",
+    64→    success: "WhatsApp opened — see you at the gym.",
+    65→    privacy: "Opens WhatsApp with your message pre-filled. No account, no spam.",
+    66→  },
+    67→  toTop: "Back to top",
+    68→  ticker: [
+    69→    "Strength",
+    70→    "Cardio & HIIT",
+    71→    "Boxing",
+    72→    "Women's Only",
+    73→    "Open Gym 24/7",
+    74→    "Mar Mikhael, Beirut",
+    75→  ],
+    76→  stats: {
+    77→    items: [
+    78→      { value: 500, suffix: "+", label: "Active members" },
+    79→      { value: 12, suffix: "", label: "Certified coaches" },
+    80→      { value: 40, suffix: "+", label: "Classes every week" },
+    81→      { value: 24, suffix: "/7", label: "Member access" },
+    82→    ],
+    83→  },
+    84→  programs: {
+    85→    eyebrow: "Programs",
+    86→    title: "Pick your fight.",
+    87→    subtitle: "Four ways in. One community.",
+    88→    detailsLabel: "View details",
+    89→    detailsAria: "View details about {name}",
+    90→    closeLabel: "Close",
+    91→    expectLabel: "What to expect",
+    92→    intensityLabel: "Intensity",
+    93→    intensityAria: "Intensity {level} out of 5",
+    94→    coachLabel: "Led by",
+    95→    detailsCta: "Ask about {name} on WhatsApp",
+    96→    detailsWa: "Hi Pulse 961, I have a question about the {name} program.",
+    97→    items: [
+    98→      {
+    99→        name: "Strength",
+   100→        tag: "60 min",
+   101→        alt: "Athlete pulling a loaded barbell off the floor in a dark gym",
+   102→        description:
+   103→          "Barbell fundamentals, progressive programming and coached lifting cycles that build power you can actually measure.",
+   104→        expect: [
+   105→          "Technique-first barbell coaching from rep one",
+   106→          "A written 4-week progression you can follow",
+   107→          "Strength benchmarks tested every cycle",
+   108→        ],
+   109→        intensity: 4,
+   110→        coach: "Karim",
+   111→      },
+   112→      {
+   113→        name: "Cardio & HIIT",
+   114→        tag: "45 min",
+   115→        alt: "Three runners sprinting at dusk",
+   116→        description:
+   117→          "Fast intervals on turf, rowers and bikes. Forty minutes in, endorphins out, excuses gone.",
+   118→        expect: [
+   119→          "45 focused minutes on turf, rowers and bikes",
+   120→          "Heart-rate zones instead of guesswork",
+   121→          "Scales for every fitness level",
+   122→        ],
+   123→        intensity: 5,
+   124→        coach: "Rania",
+   125→      },
+   126→      {
+   127→        name: "Boxing",
+   128→        tag: "60 min",
+   129→        alt: "Boxing gloves resting on the edge of a ring",
+   130→        description:
+   131→          "Bag work, pad drills and footwork in our ring corner. Gloves up, phones down.",
+   132→        expect: [
+   133→          "Footwork and stance before power",
+   134→          "Coach-held pad rounds every session",
+   135→          "Shoulder and core conditioning",
+   136→        ],
+   137→        intensity: 4,
+   138→        coach: "Jad",
+   139→      },
+   140→      {
+   141→        name: "Women's Only Classes",
+   142→        tag: "50 min",
+   143→        alt: "Woman training on a mat in bright daylight",
+   144→        description:
+   145→          "A private women-only floor every evening. Same coaching intensity, your own space.",
+   146→        expect: [
+   147→          "A private floor — women coach, women only",
+   148→          "A smart mix of strength and HIIT",
+   149→          "Pre- and post-natal safe options",
+   150→        ],
+   151→        intensity: 3,
+   152→        coach: "Rania",
+   153→      },
+   154→    ],
+   155→  },
+   156→  memberships: {
+   157→    eyebrow: "Memberships",
+   158→    title: "Simple pricing. USD.",
+   159→    subtitle: "No joining fee. No lock-in. Freeze anytime.",
+   160→    popularBadge: "Most popular",
+   161→    joinAria: "Join the {plan} plan on WhatsApp",
+   162→    footnote: "All prices in USD. One-time $10 membership card for new members.",
+   163→    plans: [
+   164→      {
+   165→        name: "Monthly",
+   166→        price: "$35",
+   167→        note: "Month-to-month, cancel anytime",
+   168→        features: ["All group classes", "Open gym 24/7", "Lockers & showers"],
+   169→        cta: "Join Monthly",
+   170→        wa: "Hi Pulse 961, I'd like to join the Monthly membership ($35/month).",
+   171→      },
+   172→      {
+   173→        name: "3 Months",
+   174→        price: "$90",
+   175→        note: "Works out to $30/month",
+   176→        features: ["Everything in Monthly", "1 free PT session", "1 guest pass a month"],
+   177→        cta: "Join 3 Months",
+   178→        wa: "Hi Pulse 961, I'd like to join the 3 Months membership ($90).",
+   179→      },
+   180→      {
+   181→        name: "12 Months",
+   182→        price: "$300",
+   183→        note: "Works out to $25/month — best value",
+   184→        features: ["Everything in 3 Months", "2 free PT sessions", "Pulse kit: tee + shaker"],
+   185→        cta: "Join 12 Months",
+   186→        wa: "Hi Pulse 961, I'd like to join the 12 Months membership ($300).",
+   187→      },
+   188→      {
+   189→        name: "Student",
+   190→        price: "$25",
+   191→        note: "Per month — valid student ID required",
+   192→        features: ["All group classes", "Open gym 24/7", "Lockers & showers"],
+   193→        cta: "Join Student",
+   194→        wa: "Hi Pulse 961, I'd like to join the Student membership ($25/month).",
+   195→      },
+   196→    ],
+   197→  },
+   198→  /** Interactive plan finder (BMI → suggested first class). */
+   199→  finder: {
+   200→    eyebrow: "Not sure where to start?",
+   201→    title: "Find your starting point.",
+   202→    subtitle:
+   203→      "Set your height and weight — we'll point you to the class your first week should open with.",
+   204→    heightLabel: "Height (cm)",
+   205→    weightLabel: "Weight (kg)",
+   206→    resultLabel: "Your BMI",
+   207→    waiting: "Enter your height and weight to see your starting point.",
+   208→    categories: {
+   209→      underweight: "Below range",
+   210→      healthy: "Healthy range",
+   211→      overweight: "Above range",
+   212→      obese: "High range",
+   213→    },
+   214→    goals: {
+   215→      underweight: "Goal: build strength and a solid base.",
+   216→      healthy: "Goal: conditioning, skill and community.",
+   217→      overweight: "Goal: engine work and steady progress.",
+   218→      obese: "Goal: a coach-guided, joint-friendly start.",
+   219→    },
+   220→    programLabel: "Suggested first class",
+   221→    programs: {
+   222→      strength: "Strength",
+   223→      boxing: "Boxing Fundamentals",
+   224→      cardio: "Cardio & HIIT",
+   225→      coached: "Strength 101 — coached",
+   226→    },
+   227→    cta: "Send my result on WhatsApp",
+   228→    waTemplate:
+   229→      "Hi Pulse 961, my BMI is {bmi} ({category}). I'd like to start with {program}. Can you help me pick a plan?",
+   230→    disclaimer:
+   231→      "A starting point, not a diagnosis — your coach fine-tunes everything with you.",
+   232→  },
+   233→  schedule: {
+   234→    eyebrow: "Timetable",
+   235→    title: "This week at Pulse.",
+   236→    subtitle: "Turn up 10 minutes early. First-timers are welcome in every class.",
+   237→    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+   238→    slots: ["06:30", "12:30", "18:00", "19:30"],
+   239→    grid: [
+   240→      ["Sunrise Strength", "Express Circuit", "Boxing Fundamentals", "Powerlifting"],
+   241→      ["HIIT 45", "Women's Only HIIT", "Strength 101", "Spin & Core"],
+   242→      ["Sunrise Strength", "Express Circuit", "Boxing Padwork", "Conditioning"],
+   243→      ["HIIT 45", "Women's Only HIIT", "Strength 101", "Spin & Core"],
+   244→      ["Sunrise Strength", "Express Circuit", "Open Mat Boxing", "Team WOD"],
+   245→      ["Team WOD", "Open Gym", "Boxing Basics", "Mobility Flow"],
+   246→      ["Open Gym", "Open Gym", "Open Gym", "Open Gym"],
+   247→    ],
+   248→    todayLabel: "Today",
+   249→    timeHeader: "Time",
+   250→    dayHeader: "Day",
+   251→    bookHint: "Tap any class to hold your spot on WhatsApp — we reply fast.",
+   252→    bookAria: "Book {name} on {day} at {time} on WhatsApp",
+   253→    bookClassWa:
+   254→      "Hi Pulse 961, I'd like to book a spot in {name} on {day} at {time}.",
+   255→    bookOpenWa: "Hi Pulse 961, I'd like to come in for Open Gym on {day} at {time}.",
+   256→  },
+   257→  trainers: {
+   258→    eyebrow: "Coaches",
+   259→    title: "Coached, not babysat.",
+   260→    subtitle: "Certified, competitive and obsessed with clean technique.",
+   261→    followAria: "{name} on Instagram",
+   262→    specialtiesLabel: "Specialties",
+   263→    bookCta: "Train with {name}",
+   264→    bookAria: "Book a session with {coach} on WhatsApp",
+   265→    bookWa: "Hi Pulse 961, I'd like to book a personal session with {coach}.",
+   266→    items: [
+   267→      {
+   268→        name: "Karim Haddad",
+   269→        role: "Head Coach — Strength",
+   270→        alt: "Coach Karim mid-workout with battle ropes in the gym",
+   271→        bio: "Powerlifting coach and former national lifter. Ten years of turning beginners into barbell believers.",
+   272→        ig: "karim.haddad.pt",
+   273→        specialties: ["Powerlifting", "Barbell fundamentals", "1-on-1 coaching"],
+   274→      },
+   275→      {
+   276→        name: "Rania Fakhoury",
+   277→        role: "Women's Training & HIIT",
+   278→        alt: "Coach Rania holding a battle rope over her shoulder",
+   279→        bio: "High-energy circuits, real talk, zero judgment. Certified pre- and post-natal specialist.",
+   280→        ig: "rania.moves",
+   281→        specialties: ["Women's training", "Pre & post-natal", "HIIT circuits"],
+   282→      },
+   283→      {
+   284→        name: "Jad El Sayed",
+   285→        role: "Boxing",
+   286→        alt: "Coach Jad holding focus pads during a boxing session",
+   287→        bio: "Former national amateur champion. Teaches footwork before fists, patience before power.",
+   288→        ig: "jad.pads",
+   289→        specialties: ["Boxing fundamentals", "Padwork", "Footwork"],
+   290→      },
+   291→    ],
+   292→  },
+   293→  gallery: {
+   294→    eyebrow: "Inside Pulse",
+   295→    title: "No mirrors for show.",
+   296→    subtitle:
+   297→      "Two floors of iron, turf and a ring corner — take a look around before you walk in.",
+   298→    scrollHint: "Drag to explore",
+   299→    counterLabel: "Photo",
+   300→    items: [
+   301→      { altKey: "dumbbells", alt: "Racks of dumbbells lined up on the free-weight floor", caption: "The free-weight floor" },
+   302→      { altKey: "floor", alt: "Wide view of the main training floor with rigs and benches", caption: "Main floor, first light" },
+   303→      { altKey: "cardio", alt: "Cardio deck with rowers and treadmills in moody light", caption: "Cardio deck after dark" },
+   304→      { altKey: "lift", alt: "Close-up of chalked hands gripping a loaded barbell", caption: "Barbells you don't wait for" },
+   305→      { altKey: "plates", alt: "Athlete setting up a barbell with change plates", caption: "Plates for every PR" },
+   306→      { altKey: "treadmills", alt: "Row of treadmills under warm gym lighting", caption: "Conditioning zone" },
+   307→    ],
+   308→  },
+   309→  stories: {
+   310→    eyebrow: "Results",
+   311→    title: "Goals, not gimmicks.",
+   312→    subtitle: "Real members, real milestones — no before/after photos needed.",
+   313→    items: [
+   314→      {
+   315→        quote:
+   316→          "I lost 14 kg in 8 months, but the real win was deadlifting my bodyweight for the first time at 41.",
+   317→        name: "Walid, 41",
+   318→        tags: ["-14 kg", "100 classes", "First deadlift"],
+   319→      },
+   320→      {
+   321→        quote:
+   322→          "Boxing gave me a confidence I didn't know I was missing. Now I spar — and I smile doing it.",
+   323→        name: "Nour, 22",
+   324→        tags: ["First fight", "Student plan"],
+   325→      },
+   326→      {
+   327→        quote:
+   328→          "Two kids, a full-time job, and still four sessions a week. The women-only floor is what made it possible.",
+   329→        name: "Maya, 34",
+   330→        tags: ["Women's only", "4x a week"],
+   331→      },
+   332→    ],
+   333→  },
+   334→  faq: {
+   335→    eyebrow: "FAQ",
+   336→    title: "Before you ask.",
+   337→    items: [
+   338→      {
+   339→        q: "Is there parking?",
+   340→        a: "Yes — free member parking behind the building on Armenia Street, plus covered bike racks right at the entrance.",
+   341→      },
+   342→      {
+   343→        q: "Are there showers and lockers?",
+   344→        a: "Full changing rooms with hot showers and free day lockers. Bring your own padlock, or rent a towel at reception.",
+   345→      },
+   346→      {
+   347→        q: "How does the free trial work?",
+   348→        a: "Message us on WhatsApp, pick any class or open-gym slot, and your first session is on the house. No card, no pressure, no sales pitch.",
+   349→      },
+   350→      {
+   351→        q: "Can I freeze my membership?",
+   352→        a: "Yes. Any plan can be frozen for up to two months a year for $5/month — perfect for travel or exam season.",
+   353→      },
+   354→      {
+   355→        q: "What payment methods do you accept?",
+   356→        a: "Cash in USD, Whish Money, OMT, and all major cards. Monthly plans can also be set to auto-bill.",
+   357→      },
+   358→    ],
+   359→  },
+   360→  location: {
+   361→    eyebrow: "Find us",
+   362→    title: "Mar Mikhael, Beirut.",
+   363→    addressLabel: "Address",
+   364→    address: "Armenia Street, Mar Mikhael, Beirut, Lebanon",
+   365→    hoursLabel: "Staffed hours",
+   366→    hours: [
+   367→      { days: "Mon — Fri", time: "06:00 — 23:00" },
+   368→      { days: "Saturday", time: "08:00 — 20:00" },
+   369→      { days: "Sunday", time: "09:00 — 18:00" },
+   370→    ],
+   371→    access247: "Members train 24/7 with keycard access, even outside staffed hours.",
+   372→    mapNote: "Map placeholder — embed your Google Map here.",
+   373→    mapCta: "Open in Google Maps",
+   374→  },
+   375→  cta: {
+   376→    eyebrow: "No excuses",
+   377→    title: "Start your first week free.",
+   378→    subtitle: "One message, one session, zero cost. If it's not for you, no hard feelings.",
+   379→    button: "Claim your free week on WhatsApp",
+   380→    stepsLabel: "How it works",
+   381→    steps: [
+   382→      {
+   383→        title: "Message us",
+   384→        text: "Pick a class or just say hi — we reply within the hour.",
+   385→      },
+   386→      {
+   387→        title: "Train free for a week",
+   388→        text: "Full access: classes, floor and coaches. No card needed.",
+   389→      },
+   390→      {
+   391→        title: "Pick your plan",
+   392→        text: "Love it? Choose a membership. Not yet? No hard feelings.",
+   393→      },
+   394→    ],
+   395→  },
+   396→  footer: {
+   397→    tagline: "Boutique gym — Mar Mikhael, Beirut",
+   398→    exploreTitle: "Explore",
+   399→    contactTitle: "Contact",
+   400→    rights: "Pulse 961. All rights reserved.",
+   401→    credit: "Concept design by Mawqe3 Studio",
+   402→    socialAria: {
+   403→      instagram: "Pulse 961 on Instagram",
+   404→      facebook: "Pulse 961 on Facebook",
+   405→      tiktok: "Pulse 961 on TikTok",
+   406→      whatsapp: "Pulse 961 on WhatsApp",
+   407→    },
+   408→  },
+   409→  floating: {
+   410→    aria: "Chat with us on WhatsApp",
+   411→  },
+   412→};
+   413→
+   414→export type Translations = typeof en;
+   415→
+   416→const ar: Translations = {
+   417→  nav: {
+   418→    programs: "البرامج",
+   419→    memberships: "الاشتراكات",
+   420→    schedule: "الجدول",
+   421→    trainers: "الكوتشات",
+   422→    faq: "أسئلة شائعة",
+   423→    freeTrial: "حصة مجانية",
+   424→    openMenu: "افتح القائمة",
+   425→    closeMenu: "سكّر القائمة",
+   426→    skipToContent: "تجاوز إلى المحتوى",
+   427→    langToggleLabel: "تغيير اللغة",
+   428→  },
+   429→  hero: {
+   430→    eyebrow: "بيروت — جيم بوتيك",
+   431→    titleA: "أقوى من",
+   432→    titleB: "أعذارك.",
+   433→    subtitle:
+   434→      "بلس ٩٦١، جيم بوتيك بمرعبا — حديد، ملاكمة، وحصص بتتعبّق بسرعة، وكوتشات بتعرفك باسمك فعلاً.",
+   435→    primaryCta: "احجز حصتك المجانية عالواتساب",
+   436→    secondaryCta: "شوف الاشتراكات",
+   437→    rating: "تقييم 4.9 من 5 من أكتر من ٥٠٠ عضو",
+   438→  },
+   439→  live: {
+   440→    ariaLabel: "حالة الحصص المباشرة",
+   441→    live: "عالهلأ",
+   442→    next: "الجاي قريب",
+   443→    tomorrow: "بكرا",
+   444→    openGym: "مفتوح للجميع",
+   445→    beirutTime: "توقيت بيروت",
+   446→  },
+   447→  legend: {
+   448→    ariaLabel: "أنواع الحصص",
+   449→    strength: "قوة",
+   450→    cardio: "كارديو و HIIT",
+   451→    boxing: "ملاكمة",
+   452→    open: "مفتوح للجميع",
+   453→  },
+   454→  trialForm: {
+   455→    name: "اسمك",
+   456→    namePlaceholder: "مثلاً رامي",
+   457→    interest: "شو بيناسبك؟",
+   458→    interests: {
+   459→      strength: "الحديد والقوة",
+   460→      cardio: "كارديو و HIIT",
+   461→      boxing: "ملاكمة",
+   462→      womens: "حصص نسائية",
+   463→      unsure: "لست متأكد بعد",
+   464→    },
+   465→    submit: "ابعت عالواتساب",
+   466→    success: "انفتح الواتساب — منشارك بالجيم.",
+   467→    privacy: "بينفتح واتساب مع رسالتك جاهزة. بدون حساب، وبدون رسائل مزعجة.",
+   468→  },
+   469→  toTop: "ارجع للفوق",
+   470→  ticker: ["حديد", "كارديو و HIIT", "ملاكمة", "حصص نسائية", "مفتوح 24/7", "مرعبا، بيروت"],
+   471→  stats: {
+   472→    items: [
+   473→      { value: 500, suffix: "+", label: "عضو نشط" },
+   474→      { value: 12, suffix: "", label: "كوتش معتمد" },
+   475→      { value: 40, suffix: "+", label: "حصة كل أسبوع" },
+   476→      { value: 24, suffix: "/7", label: "دخول للأعضاء" },
+   477→    ],
+   478→  },
+   479→  programs: {
+   480→    eyebrow: "البرامج",
+   481→    title: "اختار تحدّيك.",
+   482→    subtitle: "أربع طرق للبداية. وكوميونيتي واحد.",
+   483→    detailsLabel: "التفاصيل",
+   484→    detailsAria: "شوف تفاصيل {name}",
+   485→    closeLabel: "سكّر",
+   486→    expectLabel: "شو رح تعمل بالحصة",
+   487→    intensityLabel: "مستوى الجهد",
+   488→    intensityAria: "مستوى الجهد {level} من 5",
+   489→    coachLabel: "مع الكوتش",
+   490→    detailsCta: "اسأل عن {name} عالواتساب",
+   491→    detailsWa: "أهلا Pulse 961، عندي سؤال عن برنامج {name}.",
+   492→    items: [
+   493→      {
+   494→        name: "الحديد والقوة",
+   495→        tag: "60 دقيقة",
+   496→        alt: "رياضي بيرفع بار محمّل داخل الجيم",
+   497→        description:
+   498→          "أساسيات البار، برنامج متدرّج، وإشراف كوتشات بخبرة لتبني قوة حقيقية بتشوفها بالأرقام.",
+   499→        expect: [
+   500→          "تدريب بار بالتقنية الصحيحة من أول عدة",
+   501→          "برنامج متدرّج مكتوب لـ4 أسابيع",
+   502→          "تقييم قوة كل دايرة تدريب",
+   503→        ],
+   504→        intensity: 4,
+   505→        coach: "كريم",
+   506→      },
+   507→      {
+   508→        name: "كارديو و HIIT",
+   509→        tag: "45 دقيقة",
+   510→        alt: "عدّائين بيجرين وقت الغروب",
+   511→        description:
+   512→          "جولات سريعة على الترف والرّوّر والبايك. أربعين دقيقة تركض، وبتطلع منتصب.",
+   513→        expect: [
+   514→          "45 دقيقة مركّزة على الترف والرّوّر والبايك",
+   515→          "شغل بنبضات القلب، مش بالمزاج",
+   516→          "تمارين بتتعديل لكل مستوى",
+   517→        ],
+   518→        intensity: 5,
+   519→        coach: "رانية",
+   520→      },
+   521→      {
+   522→        name: "ملاكمة",
+   523→        tag: "60 دقيقة",
+   524→        alt: "قفازات ملاكمة على حافة الرينك",
+   525→        description:
+   526→          "شغل كيس، بادس، وسرعة رجلين بركن الرينك المخصّص. إرفع قفازاتك وخلّي موبايلك.",
+   527→        expect: [
+   528→          "رجلين ووقفة قبل القبضات",
+   529→          "جولات بادس مع الكوتش كل حصة",
+   530→          "تقوية كتف وكور",
+   531→        ],
+   532→        intensity: 4,
+   533→        coach: "جاد",
+   534→      },
+   535→      {
+   536→        name: "حصص نسائية",
+   537→        tag: "50 دقيقة",
+   538→        alt: "سيدة بتتمرّن على مات بالنهار",
+   539→        description:
+   540→          "طابق نسائي خاص كل مسا. نفس مستوى التدريب، وبمساحتك الخاصة.",
+   541→        expect: [
+   542→          "طابق خاص — كوتش نسائية ونساء بس",
+   543→          "مزيج ذكي بين الحديد و HIIT",
+   544→          "خيارات آمنة قبل وبعد الحمل",
+   545→        ],
+   546→        intensity: 3,
+   547→        coach: "رانية",
+   548→      },
+   549→    ],
+   550→  },
+   551→  memberships: {
+   552→    eyebrow: "الاشتراكات",
+   553→    title: "أسعار بسيطة. بالدولار.",
+   554→    subtitle: "بدون رسم تسجيل. بدون التزام. وتقدر تجمّد وقت ما بدك.",
+   555→    popularBadge: "الأكثر طلباً",
+   556→    joinAria: "اشترك بالخطة {plan} عبر واتساب",
+   557→    footnote: "كل الأسعار بالدولار. كارت العضوية لمرة وحدة بـ$10 للأعضاء الجدد.",
+   558→    plans: [
+   559→      {
+   560→        name: "شهري",
+   561→        price: "$35",
+   562→        note: "من شهر لشهر، بلا التزام",
+   563→        features: ["كل الحصص الجماعية", "مفتوح 24/7", "لوكرات ودشات"],
+   564→        cta: "اشترك شهري",
+   565→        wa: "أهلا Pulse 961، حابب اشترك بالخطة الشهرية (35$ بالشهر).",
+   566→      },
+   567→      {
+   568→        name: "3 شهور",
+   569→        price: "$90",
+   570→        note: "يعني 30$ بالشهر",
+   571→        features: ["كل شي بالخطة الشهرية", "حصة PT مجانية", "دعوة صاحب كل شهر"],
+   572→        cta: "اشترك 3 شهور",
+   573→        wa: "أهلا Pulse 961، حابب اشترك بخطة 3 شهور (90$).",
+   574→      },
+   575→      {
+   576→        name: "12 شهر",
+   577→        price: "$300",
+   578→        note: "يعني 25$ بالشهر — أحسن قيمة",
+   579→        features: ["كل شي بخطة 3 شهور", "حصتين PT مجاناً", "طقم بلس: تيشيرت وشاكر"],
+   580→        cta: "اشترك 12 شهر",
+   581→        wa: "أهلا Pulse 961، حابب اشترك بخطة 12 شهر (300$).",
+   582→      },
+   583→      {
+   584→        name: "طلاب",
+   585→        price: "$25",
+   586→        note: "بالشهر — مطلوب هوية طالب سارية",
+   587→        features: ["كل الحصص الجماعية", "مفتوح 24/7", "لوكرات ودشات"],
+   588→        cta: "اشترك طلاب",
+   589→        wa: "أهلا Pulse 961، حابب اشترك بخطة الطلاب (25$ بالشهر).",
+   590→      },
+   591→    ],
+   592→  },
+   593→  /** حاسبة تفاعلية: مؤشر كتلة الجسم → أول حصة منرشّحلك. */
+   594→  finder: {
+   595→    eyebrow: "مش عارف من وين تبدأ؟",
+   596→    title: "لقي نقطة انطلاقك.",
+   597→    subtitle: "حدّد طولك ووزنك — ومنرشّحلك أول حصة اللي بتناسبك.",
+   598→    heightLabel: "الطول (سم)",
+   599→    weightLabel: "الوزن (كغ)",
+   600→    resultLabel: "مؤشر كتلتك",
+   601→    waiting: "خلّي الطول والوزن ليشوف نقطة انطلاقك.",
+   602→    categories: {
+   603→      underweight: "تحت المعدل",
+   604→      healthy: "بالمعدل الصحي",
+   605→      overweight: "فوق المعدل",
+   606→      obese: "مرتفع",
+   607→    },
+   608→    goals: {
+   609→      underweight: "الهدف: تبني قوة وأساس متين.",
+   610→      healthy: "الهدف: لياقة، مهارة، وأجواء حلوة.",
+   611→      overweight: "الهدف: شغل ستامينا وتقدّم ثابت.",
+   612→      obese: "الهدف: بداية مع كوتش وآمنة على المفاصل.",
+   613→    },
+   614→    programLabel: "أول حصة منرشّحلك",
+   615→    programs: {
+   616→      strength: "قوة",
+   617→      boxing: "أساسيات الملاكمة",
+   618→      cardio: "كارديو و HIIT",
+   619→      coached: "قوة 101 — مع كوتش",
+   620→    },
+   621→    cta: "ابعث نتيجتك عالواتساب",
+   622→    waTemplate:
+   623→      "أهلا Pulse 961، مؤشر كتلتي {bmi} ({category}). حابب ابلش بحصة {program}. فيكم تساعدني اختار خطة؟",
+   624→    disclaimer:
+   625→      "هاد انطلاقة، مش تشخيص — الكوتش بيظبطها معك بالتفصيل.",
+   626→  },
+   627→  schedule: {
+   628→    eyebrow: "الجدول",
+   629→    title: "هالأسبوع عالبلس.",
+   630→    subtitle: "خبّر 10 دقايق بدري. أول مرة منوّر بكل حصة.",
+   631→    days: ["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+   632→    slots: ["06:30", "12:30", "18:00", "19:30"],
+   633→    grid: [
+   634→      ["قوة الفجر", "دايرة سريعة", "أساسيات الملاكمة", "باور ليفتينغ"],
+   635→      ["HIIT 45", "HIIT نسائي", "قوة 101", "سبن وكور"],
+   636→      ["قوة الفجر", "دايرة سريعة", "بادوورك ملاكمة", "كوندشنينغ"],
+   637→      ["HIIT 45", "HIIT نسائي", "قوة 101", "سبن وكور"],
+   638→      ["قوة الفجر", "دايرة سريعة", "ملاكمة مفتوحة", "تمرين جماعي"],
+   639→      ["تمرين جماعي", "مفتوح للجميع", "أساسيات الملاكمة", "استطالة وحركة"],
+   640→      ["مفتوح للجميع", "مفتوح للجميع", "مفتوح للجميع", "مفتوح للجميع"],
+   641→    ],
+   642→    todayLabel: "اليوم",
+   643→    timeHeader: "الوقت",
+   644→    dayHeader: "اليوم",
+   645→    bookHint: "دوس على أي حصة لحجز مصدرك عالواتساب — منردّ بسرعة.",
+   646→    bookAria: "احجز {name} يوم {day} الساعة {time} عالواتساب",
+   647→    bookClassWa:
+   648→      "أهلا Pulse 961، حابب أحجز مصل بحصة {name} يوم {day} الساعة {time}.",
+   649→    bookOpenWa: "أهلا Pulse 961، حابب اجي وقت مفتوح للجميع يوم {day} الساعة {time}.",
+   650→  },
+   651→  trainers: {
+   652→    eyebrow: "الكوتشات",
+   653→    title: "تدريب حقيقي، مش مراقبة.",
+   654→    subtitle: "معتمدين، منافسين، ومهووسين بالتفاصيل الصحيحة.",
+   655→    followAria: "{name} عالإنستغرام",
+   656→    specialtiesLabel: "تخصصات",
+   657→    bookCta: "تدرّب مع {name}",
+   658→    bookAria: "احجز حصة مع {coach} عالواتساب",
+   659→    bookWa: "أهلا Pulse 961، حابب أحجز حصة فردية مع {coach}.",
+   660→    items: [
+   661→      {
+   662→        name: "كريم حداد",
+   663→        role: "كوتش أول — حديد",
+   664→        alt: "الكوتش كريم بيتدرّب بالحبال داخل الجيم",
+   665→        bio: "كوتش باورليفتينغ ولاعب منتخب سابق. عشر سنين عم يحوّلوا المبتدئين لمؤمنين بالبار.",
+   666→        ig: "karim.haddad.pt",
+   667→        specialties: ["باورليفتينغ", "أساسيات البار", "تدريب فردي"],
+   668→      },
+   669→      {
+   670→        name: "رانية فخوري",
+   671→        role: "تدريب نسائي و HIIT",
+   672→        alt: "الكوتش رانية شايلة حبل تدريب عالكتف",
+   673→        bio: "حصص عالية الطاقة، حكي واقعي، وصفر حكم. مختصة بالتدريب قبل وبعد الحمل.",
+   674→        ig: "rania.moves",
+   675→        specialties: ["تدريب نسائي", "قبل وبعد الحمل", "دايرات HIIT"],
+   676→      },
+   677→      {
+   678→        name: "جاد الصيّاد",
+   679→        role: "ملاكمة",
+   680→        alt: "الكوتش جاد شايل بادس وقت حصة ملاكمة",
+   681→        bio: "بطل لبنان السابق بالهواة. بعلّم رجلين قبل قبضات، وصبر قبل قوة.",
+   682→        ig: "jad.pads",
+   683→        specialties: ["أساسيات الملاكمة", "بادوورك", "سرعة رجلين"],
+   684→      },
+   685→    ],
+   686→  },
+   687→  gallery: {
+   688→    eyebrow: "من جوّا",
+   689→    title: "مرايات للعرض، ما في.",
+   690→    subtitle: "طابقين حديد وترف وركن ملاكمة — تجوّل قبل ما تجي بالجسم.",
+   691→    scrollHint: "جر وكتشف",
+   692→    counterLabel: "صورة",
+   693→    items: [
+   694→      { altKey: "dumbbells", alt: "صفوف دمبل مرتّبة بطابق الأوزان الحرة", caption: "طابق الأوزان الحرة" },
+   695→      { altKey: "floor", alt: "منظورة واسعة للطابق الرئيسي مع أجهزة وبنشات", caption: "الطابق الرئيسي بأول الضهر" },
+   696→      { altKey: "cardio", alt: "قسم كارديو مع رفوف ترف على ضوء هادي", caption: "قسم الكارديو بعد الغروب" },
+   697→      { altKey: "lift", alt: "لقطة قريبة إيد مغموسة بالطبشور ماسكة بار محمّل", caption: "بارات بدون انتظار" },
+   698→      { altKey: "plates", alt: "رياضي بجهّز بار مع أوزان صغيرة", caption: "أوزان لكل مستوى" },
+   699→      { altKey: "treadmills", alt: "صف جهاز مشي تحت إضاءة الجيم", caption: "منطقة الكوندشنينغ" },
+   700→    ],
+   701→  },
+   702→  stories: {
+   703→    eyebrow: "النتائج",
+   704→    title: "أهداف، مش دعاية.",
+   705→    subtitle: "أعضاء حقيقيين وإنجازات حقيقية — بدون صور قبل وبعد.",
+   706→    items: [
+   707→      {
+   708→        quote:
+   709→          "نزلت 14 كيلو بـ8 شهور، بس الفرحة الحقيقية لما حملّيت وزني كامل عالبار لأول مرة بعمر 41 سنة.",
+   710→        name: "وليد، 41",
+   711→        tags: ["-14 كغ", "100 حصة", "أول ديدليفت"],
+   712→      },
+   713→      {
+   714→        quote:
+   715→          "الملاكمة عطتني ثقة ما كنت عارفة إنها عندي. هلأ بعمل سبار — وبتضحك وأنا بعملها.",
+   716→        name: "نور، 22",
+   717→        tags: ["أول نزال", "خطة طلاب"],
+   718→      },
+   719→      {
+   720→        quote:
+   721→          "ولدين وشغل دوام كامل، ومع هيك 4 حصات بالأسبوع. الطابق النسائي هو اللي خلاّقة ممكنة.",
+   722→        name: "مايا، 34",
+   723→        tags: ["حصص نسائية", "4 مرات بالأسبوع"],
+   724→      },
+   725→    ],
+   726→  },
+   727→  faq: {
+   728→    eyebrow: "أسئلة شائعة",
+   729→    title: "قبل ما تسأل.",
+   730→    items: [
+   731→      {
+   732→        q: "في باركينغ؟",
+   733→        a: "أي — باركينغ مجاني للأعضاء بالأرض اللي ورا البناية على شارع أرمينيا، وفي حاملات دبابات ودراجات مغطّاة عند المدخل.",
+   734→      },
+   735→      {
+   736→        q: "في دشات ولوكرات؟",
+   737→        a: "غرف تبديل كاملة مع دشات سخنة ولوكرات مجانية لليوم. جيب قفل تبعك، أو استأجر فوطة من الاستقبال.",
+   738→      },
+   739→      {
+   740→        q: "كيف بتشتغل الحصة المجانية؟",
+   741→        a: "ابعتلنا عالواتساب، اختار أي حصة أو وقت مفتوح، وأول حصة علينا. بدون بطاقة، بدون ضغط، وبدون حكي بيع.",
+   742→      },
+   743→      {
+   744→        q: "فيني جمّد اشتراكي؟",
+   745→        a: "أي. أي خطة بتتجمد لحد شهرين بالسنة بـ5$ بالشهر — منيحة كتير للسفر أو أيام الامتحانات.",
+   746→      },
+   747→      {
+   748→        q: "شو طرق الدفع المقبولة؟",
+   749→        a: "كاش بالدولار، Whish Money، OMT، وكل الكروت الرئيسية. والخطط الشهرية كمان بتتجدد أوتوماتيك.",
+   750→      },
+   751→    ],
+   752→  },
+   753→  location: {
+   754→    eyebrow: "وين نحنا",
+   755→    title: "مرعبا، بيروت.",
+   756→    addressLabel: "العنوان",
+   757→    address: "شارع أرمينيا، مرعبا، بيروت، لبنان",
+   758→    hoursLabel: "أوقات الدوام",
+   759→    hours: [
+   760→      { days: "الاثنين — الجمعة", time: "06:00 — 23:00" },
+   761→      { days: "السبت", time: "08:00 — 20:00" },
+   762→      { days: "الأحد", time: "09:00 — 18:00" },
+   763→    ],
+   764→    access247: "الأعضاء بيدخلوا 24/7 بكارت الدخول، حتى برّا أوقات الدوام.",
+   765→    mapNote: "مكان الخريطة — ضيف خريطة جوجل هنا.",
+   766→    mapCta: "افتح بخريطة جوجل",
+   767→  },
+   768→  cta: {
+   769→    eyebrow: "بدون أعذار",
+   770→    title: "أول أسبوع عليك، مجاناً.",
+   771→    subtitle: "رسالة وحدة، حصة وحدة، بدون تكلفة. وما حبيتها، ما في مشكلة.",
+   772→    button: "احجز أسبوعك المجاني عالواتساب",
+   773→    stepsLabel: "كيف بتشتغل الأمور",
+   774→    steps: [
+   775→      {
+   776→        title: "ابعتلنا رسالة",
+   777→        text: "اختار حصة أو بس حيّي — منردّ خلال ساعة.",
+   778→      },
+   779→      {
+   780→        title: "تدرّب أسبوع مجاناً",
+   781→        text: "دخول كامل: حصص، أجهزة، وكوتشات. بدون بطاقة.",
+   782→      },
+   783→      {
+   784→        title: "اختار خطتك",
+   785→        text: "عجبك؟ اشترك. لسا مش متأكد؟ ما في مشكلة.",
+   786→      },
+   787→    ],
+   788→  },
+   789→  footer: {
+   790→    tagline: "جيم بوتيك — مرعبا، بيروت",
+   791→    exploreTitle: "تصفّح",
+   792→    contactTitle: "تواصل",
+   793→    rights: "بلس ٩٦١. جميع الحقوق محفوظة.",
+   794→    credit: "فكرة وتصميم Mawqe3 Studio",
+   795→    socialAria: {
+   796→      instagram: "بلس ٩٦١ على انستغرام",
+   797→      facebook: "بلس ٩٦١ على فيسبوك",
+   798→      tiktok: "بلس ٩٦١ على تيك توك",
+   799→      whatsapp: "بلس ٩٦١ على واتساب",
+   800→    },
+   801→  },
+   802→  floating: {
+   803→    aria: "احكيلنا عالواتساب",
+   804→  },
+   805→};
+   806→
+   807→export const translations: Record<Language, Translations> = { en, ar };
+   808→
+   809→/** WhatsApp default trial message per language. */
+   810→export const TRIAL_MESSAGE: Record<Language, string> = {
+   811→  en: "Hi Pulse 961, I'd like to book a free trial",
+   812→  ar: "أهلا Pulse 961، حابب أحجز حصة تجريبية مجانية",
+   813→};
+   814→

@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Pulse 961//Class Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:ملاكمة — Pulse 961
+BEGIN:VEVENT
+UID:pulse961-boxing-0-2@pulse961.example
+DTSTAMP:20261015T201114Z
+DTSTART:20261019T180000
+DTEND:20261019T190000
+RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=8
+SUMMARY:أساسيات الملاكمة — Pulse 961
+LOCATION:Pulse 961 — Mar Mikhael\, Beirut
+DESCRIPTION:بتتكرر كل أسبوع لمدة 8 أسابيع. للحجز أو تغيير الموعد، راسلنا عالواتساب.
+END:VEVENT
+BEGIN:VEVENT
+UID:pulse961-boxing-2-2@pulse961.example
+DTSTAMP:20261015T201114Z
+DTSTART:20261021T180000
+DTEND:20261021T190000
+RRULE:FREQ=WEEKLY;BYDAY=WE;COUNT=8
+SUMMARY:بادوورك ملاكمة — Pulse 961
+LOCATION:Pulse 961 — Mar Mikhael\, Beirut
+DESCRIPTION:بتتكرر كل أسبوع لمدة 8 أسابيع. للحجز أو تغيير الموعد، راسلنا عالواتساب.
+END:VEVENT
+BEGIN:VEVENT
+UID:pulse961-boxing-4-2@pulse961.example
+DTSTAMP:20261015T201114Z
+DTSTART:20261016T180000
+DTEND:20261016T190000
+RRULE:FREQ=WEEKLY;BYDAY=FR;COUNT=8
+SUMMARY:ملاكمة مفتوحة — Pulse 961
+LOCATION:Pulse 961 — Mar Mikhael\, Beirut
+DESCRIPTION:بتتكرر كل أسبوع لمدة 8 أسابيع. للحجز أو تغيير الموعد، راسلنا عالواتساب.
+END:VEVENT
+BEGIN:VEVENT
+UID:pulse961-boxing-5-2@pulse961.example
+DTSTAMP:20261015T201114Z
+DTSTART:20261017T180000
+DTEND:20261017T190000
+RRULE:FREQ=WEEKLY;BYDAY=SA;COUNT=8
+SUMMARY:أساسيات الملاكمة — Pulse 961
+LOCATION:Pulse 961 — Mar Mikhael\, Beirut
+DESCRIPTION:بتتكرر كل أسبوع لمدة 8 أسابيع. للحجز أو تغيير الموعد، راسلنا عالواتساب.
+END:VEVENT
+END:VCALENDAR
