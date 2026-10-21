@@ -8,7 +8,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Instagram, Facebook, Mail, MapPin, Share2 } from "lucide-react";
+import { Check, Download, Instagram, Facebook, MapPin, Share2 } from "lucide-react";
 import { SITE, waLink } from "@/lib/site-config";
 import { TRIAL_MESSAGE } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -47,10 +47,11 @@ export function Footer() {
     { href: "#location", label: t.location.eyebrow },
   ];
 
+  /** Social icons are concept placeholders ("#") — the WhatsApp link is real. */
   const socials = [
-    { href: SITE.instagramUrl, label: t.footer.socialAria.instagram, icon: <Instagram className="size-4" aria-hidden="true" /> },
-    { href: SITE.facebookUrl, label: t.footer.socialAria.facebook, icon: <Facebook className="size-4" aria-hidden="true" /> },
-    { href: SITE.tiktokUrl, label: t.footer.socialAria.tiktok, icon: <TiktokIcon className="size-4" /> },
+    { href: "#", label: t.footer.socialAria.instagram, icon: <Instagram className="size-4" aria-hidden="true" /> },
+    { href: "#", label: t.footer.socialAria.facebook, icon: <Facebook className="size-4" aria-hidden="true" /> },
+    { href: "#", label: t.footer.socialAria.tiktok, icon: <TiktokIcon className="size-4" /> },
     {
       href: waLink(TRIAL_MESSAGE[lang]),
       label: t.footer.socialAria.whatsapp,
@@ -69,11 +70,10 @@ export function Footer() {
           <p className="text-sm text-white/55">{t.footer.tagline}</p>
           <ul className="mt-2 flex items-center gap-2">
             {socials.map((social) => (
-              <li key={social.href}>
+              <li key={social.label}>
                 <a
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(social.href === "#" ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                   aria-label={social.label}
                   className="flex size-9 items-center justify-center rounded-md border border-white/15 text-white/70 transition-all duration-200 hover:border-volt hover:bg-volt hover:text-ink"
                 >
@@ -109,15 +109,6 @@ export function Footer() {
             {t.footer.contactTitle}
           </h3>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm text-white/70">
-            <li>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="flex items-center gap-2 transition-colors hover:text-volt"
-              >
-                <Mail className="size-4 shrink-0 text-volt" aria-hidden="true" />
-                {SITE.email}
-              </a>
-            </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0 text-volt" aria-hidden="true" />
               {t.location.address}
@@ -163,6 +154,16 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-white/40 sm:flex-row sm:px-6 sm:text-start lg:px-8">
           <p>© {year} {t.footer.rights}</p>
+          <a
+            href="/pulse961-project.zip"
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-volt focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-volt"
+          >
+            <Download className="size-3.5 shrink-0" aria-hidden="true" />
+            {t.footer.sourceZip}
+          </a>
           <p>
             <span className="text-white/55">{t.footer.credit}</span>
           </p>

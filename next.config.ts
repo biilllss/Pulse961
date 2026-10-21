@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+    // Cap the srcset so phones never pull huge files: 3840 removed from
+    // the default device list — the largest candidate is now 2048px wide.
+    deviceSizes: [640, 750, 832, 1080, 1200, 1920, 2048],
   },
 };
 

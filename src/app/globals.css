@@ -203,14 +203,6 @@ html.lang-ar [class*="tracking-"] {
   clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
 }
 
-/* ── Placeholder map: faint lime street-grid pattern ──────────── */
-.map-grid {
-  background-image:
-    linear-gradient(rgba(198, 255, 61, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(198, 255, 61, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
 /* ── Branded keyboard focus ─────────────────────────────────────
    Links/inputs get a crisp volt outline; shadcn buttons keep their
    ring (box-shadow) so the two never double up. */
@@ -271,19 +263,6 @@ summary:focus-visible,
 }
 .group:hover .sweep::after {
   transform: scaleX(1);
-}
-
-/* ── Map: grid parallax drift on hover ─────────────────────────── */
-.map-drift {
-  background-image:
-    linear-gradient(rgba(198, 255, 61, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(198, 255, 61, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
-  transform: translate(0, 0) scale(1);
-  transition: transform 5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.group-map:hover .map-drift {
-  transform: translate(7px, -7px) scale(1.04);
 }
 
 /* ── Hero: blueprint grid + lime glow (start side, mirrors RTL) ── */

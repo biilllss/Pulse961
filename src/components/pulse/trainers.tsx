@@ -3,8 +3,7 @@
 /**
  * Trainers: three cards, grayscale photos that regain color on hover,
  * Bebas names with a lime underline sweep, specialty chips and a
- * per-coach WhatsApp booking CTA ("Train with {name}"). The Instagram
- * chip stays always-visible too (touch screens have no hover).
+ * per-coach WhatsApp booking CTA ("Train with {name}").
  *
  * Each coach also gets a live "Next class" chip computed from the
  * weekly timetable in Beirut time (resolves which class types belong
@@ -14,7 +13,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowDown, Instagram } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IMAGES } from "@/lib/images";
 import { waLink } from "@/lib/site-config";
@@ -82,7 +81,7 @@ export function Trainers() {
                     src={images[i]}
                     alt={coach.alt}
                     fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, calc(100vw - 2rem)"
                     className="object-cover grayscale transition-all duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
                   />
                   <div
@@ -162,18 +161,8 @@ export function Trainers() {
                     </button>
                   )}
 
-                  {/* Actions: Instagram chip + WhatsApp booking CTA */}
+                  {/* Action: WhatsApp booking CTA */}
                   <div className="mt-5 flex flex-wrap items-center gap-2 pt-1">
-                    <a
-                      href={`https://instagram.com/${coach.ig}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={t.trainers.followAria.replace("{name}", coach.name)}
-                      className="inline-flex items-center gap-2 border border-white/15 px-2.5 py-1.5 text-xs font-semibold text-white/60 transition-colors hover:border-volt hover:text-volt"
-                    >
-                      <Instagram className="size-3.5" aria-hidden="true" />
-                      <span dir="ltr">@{coach.ig}</span>
-                    </a>
                     <Button
                       asChild
                       size="sm"

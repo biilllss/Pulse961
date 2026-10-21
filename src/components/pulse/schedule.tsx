@@ -34,6 +34,7 @@ import {
   type Session,
 } from "@/lib/schedule-utils";
 import { waLink } from "@/lib/site-config";
+import { saveBlob } from "@/lib/download";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion";
 import { SectionHeading } from "./section-heading";
@@ -181,14 +182,7 @@ export function Schedule() {
       t.schedule.weekIcs.desc
     );
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "pulse961-full-week.ics";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    saveBlob(blob, "pulse961-full-week.ics");
     setWeekSaved(true);
     window.setTimeout(() => setWeekSaved(false), 2400);
   };

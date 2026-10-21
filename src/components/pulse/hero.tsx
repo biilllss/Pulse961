@@ -7,7 +7,7 @@
  */
 
 import Image from "next/image";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IMAGES } from "@/lib/images";
 import { waLink } from "@/lib/site-config";
@@ -29,7 +29,7 @@ export function Hero() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 1536px) 100vw, 1920px"
           className="kenburns object-cover object-center opacity-45"
         />
         {/* Vertical gradient keeps the left text column readable */}
@@ -44,6 +44,12 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 pb-24 pt-32 sm:px-6 lg:px-8">
+        {/* Concept-project badge — small, visible, top of the page (EN/AR) */}
+        <p className="mb-3 inline-flex w-fit items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/45">
+          <Sparkles className="size-3 text-volt" aria-hidden="true" />
+          {t.hero.conceptBadge}
+        </p>
+
         <p className="mb-5 inline-flex w-fit items-center gap-3 border border-white/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/80 sm:text-xs">
           <span className="inline-block size-1.5 animate-pulse rounded-full bg-volt" aria-hidden="true" />
           {t.hero.eyebrow}

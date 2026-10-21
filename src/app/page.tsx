@@ -30,7 +30,7 @@ import { JsonLd } from "@/components/pulse/json-ld";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-ink text-white">
+    <div className="flex min-h-screen flex-col overflow-x-clip bg-ink text-white">
       {/* Structured data (server-rendered, invisible) */}
       <JsonLd />
 

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Pulse 961 brand mark: volt heartbeat on ink -->
+  <rect width="64" height="64" rx="14" fill="#0A0A0A"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#303030" stroke-width="3"/>
+  <path d="M8 34H19L25 19L34 47L40 27L44 34H56" fill="none" stroke="#C6FF3D" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+  <path d="M8 34H19L25 19L34 47L40 27L44 34H56" fill="none" stroke="#C6FF3D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

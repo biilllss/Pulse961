@@ -203,7 +203,7 @@ export function Memberships() {
         {/* Mobile-friendly side-by-side comparison of every plan */}
         <PlanCompare />
 
-        {/* Interactive starting-point tool (BMI → first class) */}
+        {/* Interactive starting-point tool (goal → first class) */}
         <PlanFinder />
 
         {/* Gift a membership — any plan as a present, one WhatsApp tap */}

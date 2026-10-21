@@ -2,13 +2,14 @@
 
 /**
  * Plan Finder — an interactive starting-point tool under the pricing grid.
- * Height/weight in metric (Lebanese default), live BMI, a suggested first
- * class per range, and a WhatsApp CTA that pre-fills the whole result.
+ * One tap picks a goal (build strength / lose fat / learn boxing /
+ * women's classes), the panel suggests the first class to open with,
+ * and the WhatsApp CTA sends a pre-filled message with that goal.
  * Deliberately framed as "a starting point, not a diagnosis".
  */
 
 import { useMemo, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Dumbbell, Flame, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { waLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
@@ -16,50 +17,35 @@ import { Reveal } from "./motion";
 import { useLanguage } from "./language-provider";
 import { WhatsappIcon } from "./icons";
 
-/* Plausible adult ranges; outside these we show the waiting state. */
-const HEIGHT = { min: 130, max: 215, step: 1, fallback: 175 };
-const WEIGHT = { min: 40, max: 180, step: 1, fallback: 75 };
+type Goal = "strength" | "fatloss" | "boxing" | "womens";
 
-type Category = "underweight" | "healthy" | "overweight" | "obese";
-type Program = "strength" | "boxing" | "cardio" | "coached";
+const GOAL_ORDER: Goal[] = ["strength", "fatloss", "boxing", "womens"];
 
-/** BMI range → display category + recommended first class. */
-function classify(bmi: number): { category: Category; program: Program } {
-  if (bmi < 18.5) return { category: "underweight", program: "strength" };
-  if (bmi < 25) return { category: "healthy", program: "boxing" };
-  if (bmi < 30) return { category: "overweight", program: "cardio" };
-  return { category: "obese", program: "coached" };
-}
+/** Icon per goal — decorative only, the label carries the meaning. */
+const GOAL_ICONS: Record<Goal, typeof Dumbbell> = {
+  strength: Dumbbell,
+  fatloss: Flame,
+  boxing: Target,
+  womens: Users,
+};
 
 export function PlanFinder() {
   const { t } = useLanguage();
-  const [height, setHeight] = useState(HEIGHT.fallback);
-  const [weight, setWeight] = useState(WEIGHT.fallback);
-
-  const validHeight = height >= HEIGHT.min && height <= HEIGHT.max;
-  const validWeight = weight >= WEIGHT.min && weight <= WEIGHT.max;
-
-  const result = useMemo(() => {
-    if (!validHeight || !validWeight) return null;
-    const bmi = weight / Math.pow(height / 100, 2);
-    const { category, program } = classify(bmi);
-    return { bmi: bmi.toFixed(1), category, program };
-  }, [height, weight, validHeight, validWeight]);
+  const [goal, setGoal] = useState<Goal | null>(null);
 
   const waHref = useMemo(() => {
-    if (!result) return undefined;
+    if (!goal) return undefined;
     const message = t.finder.waTemplate
-      .replace("{bmi}", result.bmi)
-      .replace("{category}", t.finder.categories[result.category])
-      .replace("{program}", t.finder.programs[result.program]);
+      .replace("{goal}", t.finder.goals[goal])
+      .replace("{program}", t.finder.programs[goal]);
     return waLink(message);
-  }, [result, t]);
+  }, [goal, t]);
 
   return (
     <Reveal>
       <div className="mt-14 border border-white/10 bg-panel">
         <div className="grid gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14">
-          {/* ── Inputs ─────────────────────────────────────────── */}
+          {/* ── Goal picker ─────────────────────────────────────── */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-volt">
               {t.finder.eyebrow}
@@ -71,55 +57,63 @@ export function PlanFinder() {
               {t.finder.subtitle}
             </p>
 
-            <div className="mt-8 flex flex-col gap-6">
-              <MetricField
-                id="finder-height"
-                label={t.finder.heightLabel}
-                unit="cm"
-                value={height}
-                min={HEIGHT.min}
-                max={HEIGHT.max}
-                step={HEIGHT.step}
-                onChange={setHeight}
-              />
-              <MetricField
-                id="finder-weight"
-                label={t.finder.weightLabel}
-                unit="kg"
-                value={weight}
-                min={WEIGHT.min}
-                max={WEIGHT.max}
-                step={WEIGHT.step}
-                onChange={setWeight}
-              />
+            <div
+              role="group"
+              aria-label={t.finder.groupAria}
+              className="mt-8 grid grid-cols-2 gap-3"
+            >
+              {GOAL_ORDER.map((key) => {
+                const Icon = GOAL_ICONS[key];
+                const selected = goal === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setGoal(key)}
+                    aria-pressed={selected}
+                    className={cn(
+                      "group flex flex-col items-start gap-3 border p-4 text-start transition-colors duration-200",
+                      "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-volt sm:p-5",
+                      selected
+                        ? "border-volt bg-volt/10 text-white"
+                        : "border-white/10 bg-ink/60 text-white/80 hover:border-volt/50 hover:text-white"
+                    )}
+                  >
+                    <Icon
+                      aria-hidden="true"
+                      className={cn(
+                        "size-6 transition-colors",
+                        selected ? "text-volt" : "text-white/50 group-hover:text-volt/80"
+                      )}
+                    />
+                    <span className="text-sm font-bold uppercase tracking-[0.1em]">
+                      {t.finder.goals[key]}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* ── Live result ────────────────────────────────────── */}
+          {/* ── Suggestion ──────────────────────────────────────── */}
           <div
             className="flex flex-col justify-between border border-white/10 bg-ink/70 p-6 sm:p-8"
             aria-live="polite"
           >
-            {result ? (
-              <div key={result.bmi} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+            {goal ? (
+              <div key={goal} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
-                  {t.finder.resultLabel}
+                  {t.finder.yourGoal}
                 </p>
-                <p className="mt-2 flex items-baseline gap-3">
-                  <span className="font-display text-7xl leading-none text-volt sm:text-8xl">
-                    {result.bmi}
-                  </span>
-                  <span className="border border-volt/60 px-2 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-volt">
-                    {t.finder.categories[result.category]}
-                  </span>
+                <p className="mt-2 inline-block border border-volt/60 px-2 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-volt">
+                  {t.finder.goals[goal]}
                 </p>
-                <p className="mt-4 text-sm text-white/65">{t.finder.goals[result.category]}</p>
 
                 <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
                   {t.finder.programLabel}
                 </p>
-                <p className="mt-2 inline-block bg-volt px-3 py-1.5 font-display text-2xl tracking-wide text-ink">
-                  {t.finder.programs[result.program]}
+                <p className="mt-2 inline-block bg-volt px-3 py-1.5 font-display text-2xl tracking-wide text-ink sm:text-3xl">
+                  {t.finder.programs[goal]}
                 </p>
 
                 {waHref && (
@@ -153,77 +147,5 @@ export function PlanFinder() {
         </p>
       </div>
     </Reveal>
-  );
-}
-
-/**
- * One metric row: a numeric input + a range slider bound to the same
- * state (fast on touch, precise with the keyboard). The number input
- * is forced LTR — digits and "cm/kg" stay Western in Arabic too.
- */
-function MetricField({
-  id,
-  label,
-  unit,
-  value,
-  min,
-  max,
-  step,
-  onChange,
-}: {
-  id: string;
-  label: string;
-  unit: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <div>
-      <label
-        htmlFor={id}
-        className="flex items-baseline justify-between text-sm font-semibold text-white/80"
-      >
-        {label}
-        <span className="font-display text-2xl leading-none tracking-wide text-volt" aria-hidden="true">
-          {value}
-          <span className="ms-1 text-sm text-white/45">{unit}</span>
-        </span>
-      </label>
-      <div className="mt-3 flex items-center gap-4">
-        <input
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          aria-hidden="true"
-          tabIndex={-1}
-          className="h-1.5 w-full cursor-pointer accent-volt"
-        />
-        <input
-          id={id}
-          type="number"
-          dir="ltr"
-          inputMode="numeric"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={(e) => {
-            const next = Number(e.target.value);
-            if (!Number.isNaN(next)) onChange(next);
-          }}
-          className={cn(
-            "w-20 border bg-ink px-2 py-1.5 text-center font-display text-xl tracking-wide text-white transition-colors",
-            "focus:border-volt focus:outline-none",
-            value >= min && value <= max ? "border-white/15" : "border-volt/70"
-          )}
-        />
-      </div>
-    </div>
   );
 }

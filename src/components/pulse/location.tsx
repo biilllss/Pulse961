@@ -3,20 +3,21 @@
 /**
  * Location & hours: info column (address, live staffed-hours status,
  * staffed hours with today's row highlighted, 24/7 note) next to a
- * styled placeholder map block — a lime grid with a pin, ready to be
- * swapped for a real Google Maps embed.
+ * real, lazy-loaded Google Maps embed for Armenia Street, Mar Mikhael.
  */
 
 import { useEffect, useState } from "react";
-import { Check, Clock, Copy, ExternalLink, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SITE } from "@/lib/site-config";
+import { Check, Clock, Copy, MapPin } from "lucide-react";
 import { beirutClock } from "@/lib/schedule-utils";
 import { hoursRowFor, staffedStatus, type StaffedStatus } from "@/lib/hours-utils";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion";
 import { SectionHeading } from "./section-heading";
 import { useLanguage } from "./language-provider";
+
+/** Google Maps embed — Armenia Street, Mar Mikhael, Beirut (keyless embed URL). */
+const MAP_EMBED_SRC =
+  "https://www.google.com/maps?q=Armenia%20Street%2C%20Mar%20Mikhael%2C%20Beirut%2C%20Lebanon&z=16&output=embed";
 
 export function Location() {
   const { t } = useLanguage();
@@ -185,109 +186,19 @@ export function Location() {
             </div>
           </Reveal>
 
-          {/* Placeholder map block — grid drifts + crosshair on hover.
-              The Reveal wrapper is relative so the live badge can sit
-              ON the map without nesting text inside its role="img". */}
+          {/* Real map — lazy Google Maps embed. The live status badge
+              floats on top of it (rendered outside the iframe). */}
           <Reveal delay={120} className="relative h-full">
             <div className="absolute start-3 top-3 z-10">{statusBadge(true)}</div>
-            <div
-              role="img"
-              aria-label={t.location.mapNote}
-              className="group-map map-grid relative flex h-full min-h-72 flex-col items-center justify-center gap-4 overflow-hidden border border-white/10 bg-panel/60 p-6 text-center"
-            >
-              {/* Drifting grid layer (parallax on hover) */}
-              <span
-                aria-hidden="true"
-                className="map-drift pointer-events-none absolute inset-[-28px]"
+            <div className="relative h-full min-h-72 overflow-hidden border border-white/10 bg-panel/60 sm:min-h-80">
+              <iframe
+                src={MAP_EMBED_SRC}
+                title={t.location.mapTitle}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 size-full border-0"
               />
-              {/* Stylized streets: two roads + a dashed lime walking route
-                  from the street corner up to the pin. */}
-              <svg
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 size-full"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 24 L100 32"
-                  stroke="rgba(255,255,255,0.10)"
-                  strokeWidth="2.4"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M38 0 L46 100"
-                  stroke="rgba(255,255,255,0.08)"
-                  strokeWidth="2"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M76 0 L62 100"
-                  stroke="rgba(255,255,255,0.06)"
-                  strokeWidth="1.4"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M2 86 Q34 74 44 56 T49 50"
-                  stroke="rgba(198,255,61,0.55)"
-                  strokeWidth="1"
-                  strokeDasharray="4 3"
-                  fill="none"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
-              {/* Street name labels (localized, physical positioning
-                  so they stay glued to the drawn streets in RTL too) */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-[7%] top-[15%] rotate-[4.5deg] text-[10px] font-semibold uppercase tracking-[0.28em] text-white/30"
-              >
-                {t.location.streetA}
-              </span>
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-[66%] top-[36%] rotate-[98deg] text-[10px] font-semibold uppercase tracking-[0.28em] text-white/25"
-              >
-                {t.location.streetB}
-              </span>
-              {/* Crosshair through the pin */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 start-1/2 w-px bg-volt/20 opacity-0 transition-opacity duration-700 group-map:hover:opacity-100"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-volt/20 opacity-0 transition-opacity duration-700 group-map:hover:opacity-100"
-              />
-
-              {/* Pin */}
-              <span className="relative flex size-14 items-center justify-center">
-                <span
-                  className="absolute inline-flex size-14 animate-ping rounded-full bg-volt/25 motion-reduce:animate-none"
-                  aria-hidden="true"
-                />
-                <span className="relative flex size-12 items-center justify-center rounded-full bg-volt">
-                  <MapPin className="size-6 text-ink" aria-hidden="true" />
-                </span>
-              </span>
-              <p className="font-display text-3xl tracking-wide text-white">MAR MIKHAEL</p>
-              <p
-                className="font-display text-sm tracking-[0.3em] text-volt/80"
-                dir="ltr"
-              >
-                33.8816° N — 35.5183° E
-              </p>
-              <p className="max-w-xs text-xs text-white/45">{t.location.mapNote}</p>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="mt-1 border-white/25 bg-transparent text-white hover:border-volt hover:bg-transparent hover:text-volt"
-              >
-                <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="gap-2">
-                  <ExternalLink className="size-3.5" aria-hidden="true" />
-                  {t.location.mapCta}
-                </a>
-              </Button>
             </div>
           </Reveal>
         </div>

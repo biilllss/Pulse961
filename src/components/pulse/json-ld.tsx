@@ -2,14 +2,14 @@
  * JSON-LD structured data (SEO) — a server component rendered once in
  * page.tsx. Two schema.org entries:
  *  - ExerciseGym (a LocalBusiness subtype): name, address, geo, staffed
- *    opening hours, price range, social profiles.
+ *    opening hours, price range.
  *  - FAQPage: the five questions from the FAQ accordion.
  *
  * Copy for the gym description is bilingual-safe: schema favors a single
  * primary language, so English (the site's default) is used here.
  */
 
-import { SITE } from "@/lib/site-config";
+import { SITE, WHATSAPP_NUMBER } from "@/lib/site-config";
 import { IMAGES } from "@/lib/images";
 import { translations } from "@/lib/i18n";
 
@@ -23,8 +23,7 @@ export function JsonLd() {
       "Boutique gym in Mar Mikhael, Beirut. Strength, cardio & HIIT, boxing and women-only classes — 40+ classes a week, 24/7 member access.",
     url: SITE.url,
     image: `${SITE.url}${IMAGES.og}`,
-    telephone: `+${SITE.whatsappPhone}`,
-    email: SITE.email,
+    telephone: `+${WHATSAPP_NUMBER}`,
     priceRange: "$25 - $300",
     currenciesAccepted: "USD",
     address: {
@@ -58,7 +57,6 @@ export function JsonLd() {
         closes: "18:00",
       },
     ],
-    sameAs: [SITE.instagramUrl, SITE.facebookUrl, SITE.tiktokUrl],
   };
 
   const faqSchema = {

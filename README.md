@@ -19,30 +19,31 @@ src/
 │   └── globals.css           # brand tokens, reveal/marquee CSS, RTL fixes
 ├── components/pulse/         # one file per section + shared utilities
 └── lib/
-    ├── site-config.ts        # WhatsApp number, socials, waLink() builder
+    ├── site-config.ts        # WHATSAPP_NUMBER, SITE_URL, waLink() builder
     ├── i18n.ts               # ALL EN/AR copy in one typed object
     └── images.ts             # Unsplash photo URLs (swap freely)
 ```
 
 ## Customize
 
-- **WhatsApp number** → `src/lib/site-config.ts` (`SITE.whatsappPhone`), one place, every CTA updates.
+- **WhatsApp number / site URL** → `src/lib/site-config.ts` (`WHATSAPP_NUMBER`, `SITE_URL`), one place each, every CTA/metadata updates.
 - **Copy (EN/AR)** → `src/lib/i18n.ts`. Arabic is typed against the English object, so keys can't drift.
 - **Photos** → `src/lib/images.ts`. Unsplash is allowed in `next.config.ts`.
-- **Map placeholder** → `src/components/pulse/location.tsx`, swap the block for a Google Maps embed.
+- **Map** → `src/components/pulse/location.tsx` — lazy Google Maps embed for Armenia Street, Mar Mikhael.
 
 ## Beyond the base design
 
-- **Plan Finder** — interactive BMI → suggested-first-class tool under the pricing grid
-  (`plan-finder.tsx`), with a WhatsApp CTA that pre-fills the full result. EN + AR.
+- **Plan Finder** — "Pick your goal" selector (build strength / lose fat / learn boxing /
+  women's classes) under the pricing grid (`plan-finder.tsx`), with a WhatsApp CTA that
+  pre-fills the chosen goal. EN + AR.
 - **Live status chip** — hero shows what's happening now / next in Beirut time (`live-now.tsx`).
 - **Personalized trial form** — final CTA builds a name + program WhatsApp message.
 - **Click-to-book timetable** — every class cell in the schedule opens WhatsApp with a
   pre-filled booking message (open-gym slots get their own wording). EN + AR.
 - **"Inside Pulse" gallery** — snap-scrolling photo strip (`gallery.tsx`) with desktop
   chevrons, caption chips, ghost numbers and direction-aware edge fades.
-- **Coach cards with booking** — per-coach Instagram chip, specialty chips and a
-  "Train with {name}" WhatsApp CTA pre-filled per coach.
+- **Coach cards with booking** — specialty chips and a "Train with {name}"
+  WhatsApp CTA pre-filled per coach (Karim Mansour, Rania, Jad).
 - **Program detail dialogs** — every program card opens a modal (`programs.tsx`) with
   what-to-expect list, intensity meter (1–5 bars, labelled), duration/coach meta and a
   program-specific WhatsApp CTA. Full-card accessible trigger; localized close button.
@@ -152,7 +153,7 @@ src/
   wordmark, slow Ken Burns drift on the hero photo, mouse-spotlight glow on program &
   plan cards (fine pointers only), stats hover micro-interactions, tabular numerals
   for prices/stats, plan-card volt glow, direction-aware CTA arrows, trainer underline
-  sweep, map parallax, marquee pause-on-hover, volt focus rings, uniform button
+  sweep, marquee pause-on-hover, volt focus rings, uniform button
   press-in on `:active`, `text-balance` headings, ruled hairline ticks after section
   eyebrows, and a stylized street map (SVG roads, localized street labels, dashed
   lime walking route to the pin).

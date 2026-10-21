@@ -24,6 +24,7 @@ import { IMAGES } from "@/lib/images";
 import { waLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { programSessions, buildProgramIcs, type ClassType } from "@/lib/schedule-utils";
+import { saveBlob } from "@/lib/download";
 import { Reveal, spotlightMove } from "./motion";
 import { SectionHeading } from "./section-heading";
 import { useLanguage } from "./language-provider";
@@ -75,14 +76,7 @@ export function Programs() {
       t.programs.calendarDesc
     );
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `pulse961-${PROGRAM_TYPES[i]}-classes.ics`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    saveBlob(blob, `pulse961-${PROGRAM_TYPES[i]}-classes.ics`);
     setSavedIndex(i);
     window.setTimeout(() => setSavedIndex((cur) => (cur === i ? null : cur)), 2400);
   };
@@ -121,7 +115,7 @@ export function Programs() {
                       src={images[i]}
                       alt={program.alt}
                       fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, calc(100vw - 2rem)"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div
@@ -184,7 +178,7 @@ export function Programs() {
                       src={images[i]}
                       alt={program.alt}
                       fill
-                      sizes="(min-width: 640px) 512px, 100vw"
+                      sizes="(min-width: 640px) 512px, calc(100vw - 4rem)"
                       className="object-cover"
                     />
                     <div
