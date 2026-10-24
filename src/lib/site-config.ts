@@ -9,16 +9,15 @@
  * The ONE WhatsApp number every CTA on the site deep-links to — header,
  * hero, memberships, trainers, goal picker, schedule, final CTA, footer,
  * floating button and the QR code all go through waLink() below.
- * International format, no "+". Concept placeholder: replace with the
- * real number before going live.
+ * International format, no "+".
  */
-export const WHATSAPP_NUMBER = "961XXXXXXXX";
+export const WHATSAPP_NUMBER = "96179143702";
 
 /**
  * Canonical site URL — used for metadataBase, Open Graph, Twitter cards,
  * sitemap and JSON-LD. Point this at your Vercel deployment URL.
  */
-export const SITE_URL = "https://pulse-961.vercel.app";
+export const SITE_URL = "https://pulse961.vercel.app";
 
 export const SITE = {
   name: "Pulse 961",

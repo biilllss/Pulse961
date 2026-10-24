@@ -47,7 +47,6 @@ deployment still active):
 
 - Hero: **"Concept project by Mawqe3 Studio"** badge on the first line
 - A **"Pick your goal"** selector (not a BMI calculator)
-- Footer bottom bar: **"Download project (.zip)"** link
 
 ### The favicon ("logo next to the URL")
 
@@ -70,6 +69,8 @@ redeploy. After deploying:
 
 Edit `src/lib/site-config.ts` (one file, two constants):
 
-- `WHATSAPP_NUMBER` — currently the placeholder `"961XXXXXXXX"`
-- `SITE_URL` — currently `"https://pulse-961.vercel.app"`; set your real URL so
-  OG/Twitter cards and the sitemap resolve correctly
+- `WHATSAPP_NUMBER` — already set to the real number; change it here if it
+  ever changes (every CTA on the site reads this one constant)
+- `SITE_URL` — already set to `https://pulse961.vercel.app`; keep it in sync
+  with your real deployment URL so OG/Twitter cards and the sitemap resolve
+  correctly

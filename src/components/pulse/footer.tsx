@@ -8,7 +8,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Download, Instagram, Facebook, MapPin, Share2 } from "lucide-react";
+import { Check, Instagram, Facebook, MapPin, Share2 } from "lucide-react";
 import { SITE, waLink } from "@/lib/site-config";
 import { TRIAL_MESSAGE } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -154,16 +154,6 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-white/40 sm:flex-row sm:px-6 sm:text-start lg:px-8">
           <p>© {year} {t.footer.rights}</p>
-          <a
-            href="/pulse961-project.zip"
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-volt focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-volt"
-          >
-            <Download className="size-3.5 shrink-0" aria-hidden="true" />
-            {t.footer.sourceZip}
-          </a>
           <p>
             <span className="text-white/55">{t.footer.credit}</span>
           </p>
